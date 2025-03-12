@@ -39,7 +39,7 @@ async function buildIssueParams({
     cycleId: null,
     teamId: team.id,
     title: issue.title,
-    description: issue.description,
+    description: `Pivotal ID: #${issue.id}\n\n${issue.description}`,
     labelIds,
     estimate: options.shouldImportEstimates ? estimate : undefined,
     priority: options.shouldImportPriority ? priority : undefined,

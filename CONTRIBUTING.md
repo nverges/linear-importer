@@ -16,7 +16,7 @@ const extractedPivotalData = await pivotalFormatter({
 
 - Using the `importSource` value in `import.mjs`, add logic to return a value other than `extractedPivotalData` (e.g., `extractedTrelloData`). A clever mechanism to manage future additions would be nice here.
 
-As long as your code generates a JSON output in this format, all data should migrate into Linear as expected. Key/value pairs may be ommitted if desired.
+As long as your code generates a JSON output in this format, all data should migrate into Linear as expected. Key/value pairs may be omitted if desired.
 
 - It should adhere to this format:
 

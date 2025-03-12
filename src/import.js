@@ -16,6 +16,7 @@ import createUserMapping from "./users/create_user_mapping.js";
 import { PIVOTAL_DEFAULT_LABELS } from "./labels/pivotal/_constants.js";
 import selectDirectory from "./prompts/select_csv_directory.js";
 import createIssues from "./issues/create.js";
+import createBlockers from "./issues/create_blockers.js";
 
 //=============================================================================
 // Select Import Source
@@ -103,6 +104,7 @@ if (shouldImportLabels) {
   });
 }
 
+const pivotalAndLinearIssues = [];
 //=============================================================================
 // Create Release Issues
 //=============================================================================
@@ -110,13 +112,15 @@ if (shouldImportLabels) {
 const releaseIssues = extractedPivotalData.formattedIssuePayload.filter(
   (issue) => issue.isRelease,
 );
-await createIssues({
-  team,
-  issuesPayload: releaseIssues,
-  options,
-  importSource,
-  directory,
-});
+pivotalAndLinearIssues.push(
+  ...(await createIssues({
+    team,
+    issuesPayload: releaseIssues,
+    options,
+    importSource,
+    directory,
+  })),
+);
 
 //=============================================================================
 // Create Issues
@@ -126,12 +130,24 @@ await createIssues({
 const nonReleaseIssues = extractedPivotalData.formattedIssuePayload.filter(
   (issue) => !issue.isRelease,
 );
-await createIssues({
-  team,
-  issuesPayload: nonReleaseIssues,
-  options,
-  importSource,
-  directory,
-});
+pivotalAndLinearIssues.push(
+  ...(await createIssues({
+    team,
+    issuesPayload: nonReleaseIssues,
+    options,
+    importSource,
+    directory,
+  })),
+);
 
-await detailedLogger.importantSuccess("Import complete!");
+//=============================================================================
+// Create Blockers
+//=============================================================================
+
+await createBlockers({ pivotalAndLinearIssues });
+
+//=============================================================================
+// Import complete
+//=============================================================================
+
+detailedLogger.importantSuccess("Import complete!");

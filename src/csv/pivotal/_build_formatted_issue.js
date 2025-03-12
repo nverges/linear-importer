@@ -20,6 +20,8 @@ export function buildFormattedIssue(row) {
     priority: row["Priority"],
     labels: row["Labels"],
     requestedBy: row["Requested By"],
+    blockers: row["Blocker"],
+    blockerStatuses: row["Blocker Status"],
     ownedBy,
     estimate: row["Estimate"],
     comments: [rawPivotalTrackerDataComment, ...(comments || [])],
