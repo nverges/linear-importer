@@ -23,17 +23,11 @@ async function uploadFileToLinear(file, issueId) {
       "type" in file &&
       "size" in file
     ) {
-      try {
-        if (file.arrayBuffer) {
-          const buffer = await file.arrayBuffer();
-          file = new Blob([buffer], { type: file.type });
-        } else {
-          file = new Blob([file], { type: file.type });
-        }
-        // console.log(chalk.yellow("Created Blob from file object"));
-      } catch (e) {
-        console.error("Failed to create Blob from file object:", e);
-        process.exit(0);
+      if (file.arrayBuffer) {
+        const buffer = await file.arrayBuffer();
+        file = new Blob([buffer], { type: file.type });
+      } else {
+        file = new Blob([file], { type: file.type });
       }
     } else {
       throw new Error(

@@ -41,12 +41,14 @@ Built with [Linear SDK](https://github.com/linear/linear/tree/master/packages/sd
 
 ## Setup
 
+Requires Node version: 20.0.0 or higher
+
 ### Installation
 
 1. Create a Team and add Members in Linear
-1. Create a Personal API key in Linear under Settings -> API
+2. Create a Personal API key in Linear under Settings -> API
 3. Create a `.env` file and and populate `API_KEY`
-4. `yarn install`
+4. `yarn install` or `npm install`
 5. Unzip Pivotal Tracker export zip file into `assets` folder
 
 ### Usage
@@ -89,6 +91,8 @@ Built with [Linear SDK](https://github.com/linear/linear/tree/master/packages/sd
 - Configure your import by selecting specific story types via the CLI prompt
 
 Linear Issues will be assigned a label with the corresponding Story Type (See [Labels](#labels))
+
+**NOTE**: Rejected and Delivered stories are not imported, make sure any stories you want to import have been set to 'Unstarted' or "Finished" in Pivotal Tracker *before* you do the Pivotal export.
 
 #### Releases
 

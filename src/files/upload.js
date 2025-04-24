@@ -26,8 +26,7 @@ async function upload(filePath, issueId) {
       `File Attachment uploaded successfully! Issue ID: ${issueId}, Asset URL: ${assetUrl}`,
     );
   } catch (error) {
-    detailedLogger.error("Error uploading file:", error.message);
-    process.exit(0);
+    detailedLogger.error(`Failed to upload uploading file for issue ${issueId}`, error.message);
   }
 }
 

@@ -2,11 +2,13 @@ import linearClient from "../../config/client.mjs";
 
 import { detailedLogger } from "../../logger/logger_instance.js";
 
-async function createComment({ issueId, body }) {
+async function createComment({ issueId, body, createdAt }) {
   try {
     const response = await linearClient.createComment({
       issueId,
       body,
+      createdAt,
+      // createAsUser, TODO: Won't work unless we use OAUTH Application token
     });
 
     if (response.success) {
@@ -17,11 +19,9 @@ async function createComment({ issueId, body }) {
       );
     } else {
       detailedLogger.error(`Error creating comment: ${response.errors}`);
-      process.exit(1);
     }
   } catch (error) {
     detailedLogger.error("Error creating comment:", error.message);
-    process.exit(1);
   }
 }
 

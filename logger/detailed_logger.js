@@ -43,8 +43,9 @@ class DetailedLogger {
     );
   }
 
-  error(message) {
-    console.error(chalk.red(`❌ ${message}`));
+  error(message, error) {
+    const errorMessage = error ? `${message} ${error}` : message;
+    console.error(chalk.red(`❌ ${errorMessage}`));
   }
 
   importantInfo(message) {

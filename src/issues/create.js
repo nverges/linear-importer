@@ -57,7 +57,7 @@ async function create({
 
       // Create Comments
       if (options.shouldImportComments)
-        await createComments({ issue, newIssue });
+        await createComments({ issue, newIssue, team });
 
       // Create File Attachments
       if (options.shouldImportFiles)
